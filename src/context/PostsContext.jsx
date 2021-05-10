@@ -3,7 +3,11 @@ import { usePosts } from './usePosts';
 
 export const PostsContext = createContext();
 export const PostsProvider = ({ children }) => {
-  const posts = usePosts();
+  const [posts, deletePost] = usePosts();
 
-  return <PostsContext.Provider value={posts}>{children}</PostsContext.Provider>;
+  const handleDeletePost = (id) => {
+    deletePost(id);
+  };
+
+  return <PostsContext.Provider value={{ posts, handleDeletePost }}>{children}</PostsContext.Provider>;
 };

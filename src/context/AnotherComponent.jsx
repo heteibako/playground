@@ -2,11 +2,20 @@ import React, { useContext } from 'react';
 import { PostsContext } from './PostsContext';
 
 export const AnotherComponent = ({ users }) => {
-  const posts = useContext(PostsContext);
+  const { posts, handleDeletePost } = useContext(PostsContext);
   return (
     <div style={styles.wrapper}>
-      <div style={styles.column}>{Array.isArray(users) && users.map((user) => <p>{user.username}</p>)}</div>
-      <div style={styles.column}>{Array.isArray(posts) && posts.map((post) => <p>{post.title}</p>)}</div>
+      <div style={styles.column}>
+        {Array.isArray(users) && users.map((user) => <p key={user.id}>{user.username}</p>)}
+      </div>
+      <div style={styles.column}>
+        {Array.isArray(posts) &&
+          posts.map((post) => (
+            <p key={post.id} onClick={() => handleDeletePost(post.id)}>
+              {post.title}
+            </p>
+          ))}
+      </div>
     </div>
   );
 };
