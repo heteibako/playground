@@ -8,10 +8,13 @@ export const usePosts = () => {
     const newPosts = [...posts].filter((item) => item.id !== id);
     setPosts(newPosts);
   };
+  const addPost = (post) => {
+    setPosts([...posts, { title: post, id: Math.floor(Math.random()) }]);
+  };
 
   useEffect(() => {
     axios.get('https://jsonplaceholder.typicode.com/posts').then((res) => setPosts(res.data));
   }, []);
 
-  return [posts, deletePost];
+  return [posts, deletePost, addPost];
 };
